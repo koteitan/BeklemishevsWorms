@@ -15,7 +15,16 @@ var inc=function(){
   if(n==0){
     return;
   }else if(w[n-1]==0){
-    w1=w.slice(0,n-1);
+    var k=n-1;
+    while(k>0){
+      if(w[k-1]!=0){
+        break;
+      }else{
+        k--;
+        m++;
+      }
+    }
+    w1=w.slice(0,k);
   }else{
     var k=-1;
     for(var i=n-2;i>=0;i--){
