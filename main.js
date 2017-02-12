@@ -1,12 +1,12 @@
 window.onload=function(){ //entry point
 }
-var w=[2];
+var w=[1,1];
 var m=1;
 var buffer='';
 var reset=function(){
   var str=input.value;
   w=str.split(',').map(function(e){return parseInt(e);});
-  buffer='0:'+w.toString()+'\n';
+  buffer='0:'+wormToString(w)+'\n';
   output.value=buffer;
   m=1;
 };
@@ -39,9 +39,33 @@ var inc=function(){
     }
   }
   
-  buffer=m+":"+w1.toString()+'\n'+buffer;
+  buffer=m+":"+wormToString(w1)+'\n'+buffer;
   output.value=buffer;
-  debug.value="g="+g.toString()+";b="+b.toString();
+//  debug.value="g="+g.wormToString()+";b="+b.wormToString();
   w=w1;
   m++;
 }
+var wormToString=function(a){
+  if(a.length==0)return "[]";
+  ret="[";
+  for(var i=0;i<a.length;i++){
+    var c=1;
+    var ti=a[i];
+    for(var j=i+1;j<a.length;j++){
+      if(ti==a[j]){
+        c++;
+      }else{
+        break;
+      }
+    }
+    if(c==1){
+      ret+=ti;
+    }else{
+      ret+=ti+"^"+c;
+      i+=c-1;
+    }
+    if(i<a.length-1) ret+=",";
+  }
+  return ret+"]";
+};
+
